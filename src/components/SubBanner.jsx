@@ -8,7 +8,7 @@ const SubBanner = () => {
         className="absolute inset-0 bg-cover bg-center opacity-80"
         style={{
           backgroundImage:
-            "url('https://vinacen.vn/frontend/images/banner.jpg')",
+            "url('https://vinacen.vn/frontend/images/3dindex2.jpg')",
         }}
       ></div>
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
@@ -27,14 +27,14 @@ const SubBanner = () => {
 
         {/* Text Content */}
         <div className="text-center md:text-left space-y-6">
-          <h1 className="text-2xl md:text-4xl font-bold tracking-wide uppercase">
+          <h1 className="text-2xl md:text-4xl font-bold font-roboto tracking-wide uppercase">
             Vinacen - Thương Hiệu Vượt Thời Gian
           </h1>
           <div className="border-b-4 border-teal-500 w-64 mx-auto md:mx-0"></div>
           <p className="text-base md:text-lg text-gray-300 font-roboto">
             Là doanh nghiệp đầu tiên tại Việt Nam ứng dụng công nghệ trang trí
             nội thất 3D, VinaCen hướng tới là{" "}
-            <span className="font-roboto font-bold text-white">
+            <span className="font-roboto font-bold text-white ">
               nhà cung cấp tấm ốp tường 3D số 1
             </span>{" "}
             tại thị trường Việt Nam và các nước Đông Nam Á.

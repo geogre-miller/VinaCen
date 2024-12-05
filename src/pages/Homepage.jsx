@@ -5,8 +5,9 @@ import Infor from "@/components/Infor";
 import Statistic from "@/components/Statistic";
 import Services from "@/components/Services";
 import SubBanner from "@/components/SubBanner";
-import Service from "@/components/Service";
-
+import ProductsCharacteristic from "@/components/ProductsCharacteristic";
+import Footer from "@/components/Footer";
+import WorkWithUs from "@/components/WorkWithUs";
 const Homepage = () => {
   return (
     <div>
@@ -17,7 +18,9 @@ const Homepage = () => {
       <Statistic />
       <Services />
       <SubBanner />
-      <Service />
+      <ProductsCharacteristic />
+      <WorkWithUs />
+      <Footer />
     </div>
   );
 };
