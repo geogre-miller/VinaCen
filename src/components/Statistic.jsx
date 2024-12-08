@@ -27,8 +27,8 @@ const Statistic = () => {
         <h1 className="text-2xl font-bold font-nunito uppercase mt-6 mb-2 text-black dark:text-white">
           Thống Kê
         </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-300">
-          VinaCen với những con số
+        <p className="text-lg text-center text-gray-600 dark:text-gray-300 font-roboto">
+          VinaCen với những con số:
         </p>
       </div>
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 w-full max-w-screen-lg">
@@ -50,7 +50,7 @@ const Statistic = () => {
                 decimalPlaces={item.decimalPlaces || 0}
               />
             </p>
-            <p className="text-center text-gray-600 dark:text-gray-400">
+            <p className="text-center text-gray-600 dark:text-gray-400 font-roboto text-base text-pretty">
               {item.text}
             </p>
           </MagicCard>

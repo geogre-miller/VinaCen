@@ -46,7 +46,9 @@ const Infor = () => {
               không gian: phòng khách, phòng ngủ, nhà hàng, khách sạn, caffe,
               bar, spa…
             </p>
-            <h2 className="text-lg md:text-xl font-bold mt-5">Sứ mệnh</h2>
+            <h2 className="text-lg md:text-xl font-bold mt-5 text-center uppercase pb-5">
+              Sứ mệnh
+            </h2>
             <ul>
               <li>
                 <span>

@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# .gitignore
+.env
+.cursorrules
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -2,7 +2,7 @@ const ServicesCards = ({ icon, title, description, href }) => {
   return (
     <div
       className="group relative col-span-1 flex flex-col justify-between overflow-hidden rounded-xl bg-white shadow-md transform-gpu dark:bg-black dark:border dark:border-neutral-800 dark:shadow-lg hover:scale-105 transition-transform duration-300"
-      style={{ width: "232px", height: "249.6px" }}
+      style={{ width: "232px", height: "300px" }}
     >
       {/* Content */}
       <div className="pointer-events-none z-10 flex flex-col gap-1 p-6 mt-3 transition-all duration-300 group-hover:-translate-y-10">
@@ -12,10 +12,10 @@ const ServicesCards = ({ icon, title, description, href }) => {
           className="w-16 h-16 mb-4 mt-4 mx-auto origin-left transform-gpu text-neutral-700 transition-all duration-300 ease-in-out group-hover:scale-75"
         />
 
-        <h3 className="text-xl font-semibold text-neutral-700 dark:text-neutral-300 ">
+        <h3 className="text-xl font-semibold text-neutral-700 dark:text-neutral-300 font-nunito">
           {title}
         </h3>
-        <p className="max-w-lg text-neutral-500 dark:text-neutral-400 ">
+        <p className="max-w-lg text-neutral-500 dark:text-neutral-400 font-roboto text-base text-pretty">
           {description}
         </p>
       </div>

@@ -29,7 +29,7 @@ export default function Header() {
           />
           {/* <NavLink href="/video" label="Video" className="transition duration-300 ease-in-out transform hover:scale-105" /> */}
           <NavLink
-            href="/blog"
+            href="/blogs"
             label="Tin Tức"
             className="transition duration-300 ease-in-out transform hover:scale-105"
           />
@@ -49,7 +49,7 @@ export default function Header() {
         {/* Right Section: Additional Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
           <NavLink
-            href="#"
+            href="/products"
             label="Sản Phẩm"
             className="transition duration-300 ease-in-out transform hover:scale-105"
           />
@@ -64,7 +64,7 @@ export default function Header() {
             className="transition duration-300 ease-in-out transform hover:scale-105"
           />
           <NavLink
-            href="#"
+            href="/contacts"
             label="Liên Hệ"
             className="transition duration-300 ease-in-out transform hover:scale-105"
           />
