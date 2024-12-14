@@ -10,14 +10,15 @@ import {
 } from "@material-tailwind/react";
 import { Stepper, Step } from "@material-tailwind/react";
 import {
-  CogIcon,
-  UserIcon,
-  BuildingLibraryIcon,
+  LightBulbIcon,
+  Square3Stack3DIcon,
+  HomeModernIcon,
 } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import React from "react";
 import aboutUs1Image from "@/assets/images/aboutUs1.jpg";
 import WorkWithUs from "@/components/WorkWithUs";
+import BreadcrumbsWithIcon from "@/components/BreadcrumbsWithIcon";
 
 const AboutUs = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -29,6 +30,9 @@ const AboutUs = () => {
   return (
     <>
       <Header />
+      <div className="p-4">
+        <BreadcrumbsWithIcon />
+      </div>
       <div className="w-full min-h-screen px-[15px]">
         <div className="w-full min-h-screen md:px-8 ">
           {/* Hero Section */}
@@ -56,14 +60,26 @@ const AboutUs = () => {
                 >
                   startups
                 </Typography>
-                <Typography variant="h4" color="blue-gray" className="mb-2">
-                  Lyft launching cross-platform service this week
+                <Typography
+                  variant="h4"
+                  color="blue-gray"
+                  className="mb-2 font-nunito font-bold"
+                >
+                  Kiến Tạo Không Gian, Khẳng Định Phong Cách
                 </Typography>
-                <Typography color="gray" className="mb-8 font-normal">
-                  Like so many organizations these days, Autodesk is a company
-                  in transition. It was until recently a traditional boxed
-                  software company selling licenses. Yet its own business model
-                  disruption is only part of the story
+                <Typography
+                  color="gray"
+                  className="mb-8 font-normal text-justify"
+                >
+                  Tại Vinacen, chúng tôi mang trong mình niềm đam mê mãnh liệt
+                  với nghệ thuật trang trí không gian sống. Chúng tôi tin rằng,
+                  những bức tường và trần nhà không chỉ là những cấu trúc đơn
+                  thuần, mà còn là những bức tranh nghệ thuật tiềm năng, có thể
+                  biến đổi hoàn toàn cảm nhận về không gian. Với sự sáng tạo
+                  không ngừng và ứng dụng công nghệ 3D tiên tiến, chúng tôi mang
+                  đến những giải pháp thiết kế tường và trần nhà 3D độc đáo, ấn
+                  tượng, giúp bạn kiến tạo nên những không gian sống đẳng cấp và
+                  đầy cá tính.
                 </Typography>
                 <a href="#" className="inline-block">
                   <Button variant="text" className="flex items-center gap-2">
@@ -113,11 +129,12 @@ const AboutUs = () => {
           </div>
           <div className="mt-[110px] mx-[99px]">
             <div className="flex-col justify-center items-center">
-              <p className="text-start text-base uppercase font-roboto mb-[5px]">
+              <p className="text-3xl font-bold font-roboto uppercase  mb-[5px]">
                 Cách chúng tôi hoạt động
               </p>
-              <h1 className="text-4xl font-bold font-roboto mb-[10px]">
-                Our Process
+              <h1 className="text-start text-base font-roboto mb-[10px]">
+                Chúng tôi cam kết mang đến cho bạn không gian sống hoàn hảo với
+                quy trình làm việc chuyên nghiệp:
               </h1>
             </div>
             <div className="w-full mt-[30px] px-24 py-4 mb-20">
@@ -127,53 +144,53 @@ const AboutUs = () => {
                 isFirstStep={(value) => setIsFirstStep(value)}
               >
                 <Step onClick={() => setActiveStep(0)}>
-                  <UserIcon className="h-5 w-5" />
+                  <LightBulbIcon className="h-5 w-5" />
                   <div className="absolute -bottom-[4.5rem] w-max text-center">
                     <Typography
                       variant="h6"
                       color={activeStep === 0 ? "blue-gray" : "gray"}
                     >
-                      Step 1
+                      Bước 1: Tư vấn và lên ý tưởng
                     </Typography>
                     <Typography
                       color={activeStep === 0 ? "blue-gray" : "gray"}
                       className="font-normal"
                     >
-                      Details about yout account.
+                      Hiểu rõ nhu cầu của bạn để đưa ra giải pháp tối ưu.
                     </Typography>
                   </div>
                 </Step>
                 <Step onClick={() => setActiveStep(1)}>
-                  <CogIcon className="h-5 w-5" />
+                  <Square3Stack3DIcon className="h-5 w-5" />
                   <div className="absolute -bottom-[4.5rem] w-max text-center">
                     <Typography
                       variant="h6"
                       color={activeStep === 1 ? "blue-gray" : "gray"}
                     >
-                      Step 2
+                      Bước 2: Thiết kế 3D
                     </Typography>
                     <Typography
                       color={activeStep === 1 ? "blue-gray" : "gray"}
                       className="font-normal"
                     >
-                      Details about yout account.
+                      Hình dung không gian sống tương lai một cách chân thực.
                     </Typography>
                   </div>
                 </Step>
                 <Step onClick={() => setActiveStep(2)}>
-                  <BuildingLibraryIcon className="h-5 w-5" />
+                  <HomeModernIcon className="h-5 w-5" />
                   <div className="absolute -bottom-[4.5rem] w-max text-center">
                     <Typography
                       variant="h6"
                       color={activeStep === 2 ? "blue-gray" : "gray"}
                     >
-                      Step 3
+                      Bước 3: Sản xuất và thi công
                     </Typography>
                     <Typography
                       color={activeStep === 2 ? "blue-gray" : "gray"}
                       className="font-normal"
                     >
-                      Details about yout account.
+                      Đảm bảo chất lượng và tiến độ thi công.
                     </Typography>
                   </div>
                 </Step>

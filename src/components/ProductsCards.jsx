@@ -6,6 +6,7 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 export function ProductsCards({ product }) {
   const displayPrice =
@@ -13,11 +14,11 @@ export function ProductsCards({ product }) {
       ? "Liên hệ"
       : `$${parseFloat(product.price).toFixed(2)}`;
   return (
-    <Card className="w-96">
+    <Card className="w-96 border-2 border-blue-gray-800 shadow-md ">
       <CardHeader shadow={false} floated={false} className="h-96">
         <img
-          src={product.product_image} // Use product image URL from props
-          alt={product.name} // Use product name for alt text
+          src={product.product_image}
+          alt={product.name}
           className="h-full w-full object-cover"
         />
       </CardHeader>
@@ -27,13 +28,13 @@ export function ProductsCards({ product }) {
             color="blue-gray"
             className="text-base font-bold font-roboto"
           >
-            Model: {product.code} {/* Use product name from props */}
+            Model: {product.code}
           </Typography>
           <Typography
             color="blue-gray"
             className="text-base font-bold font-roboto"
           >
-            {displayPrice} {/* Display price or "Liên hệ" */}
+            {displayPrice}
           </Typography>
         </div>
         <Typography
@@ -41,17 +42,19 @@ export function ProductsCards({ product }) {
           color="gray"
           className="font-normal opacity-75 text-justify"
         >
-          {product.short_desc} {/* Use product description from props */}
+          {product.short_desc}
         </Typography>
       </CardBody>
       <CardFooter className="pt-0">
-        <Button
-          ripple={false}
-          fullWidth={true}
-          className="bg-blue-gray-900/10 text-sm text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 font-roboto"
-        >
-          Tìm hiểu thêm
-        </Button>
+        <Link to={`/products/${product.product_id}`}>
+          <Button
+            ripple={false}
+            fullWidth={true}
+            className="bg-blue-gray-900/10 text-sm text-blue-gray-900 shadow-none  transition-transform duration-300 hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100 font-roboto"
+          >
+            Tìm hiểu thêm
+          </Button>
+        </Link>
       </CardFooter>
     </Card>
   );

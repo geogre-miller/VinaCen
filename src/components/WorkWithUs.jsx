@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import greenWall from "../assets/images/greenWall.jpg";
 
@@ -22,14 +21,14 @@ const WorkWithUs = () => {
           <span className="text-xl md:text-4xl lg:text-4xl font-bold">
             Sẵn sàng làm việc với chúng tôi?{" "}
           </span>
-          <Link
-            to="/contacts"
+          <a
+            href="/contacts"
             className="inline-block mt-4 md:mt-0 text-3xl md:text-4xl lg:text-4xl font-bold 
               underline decoration-2 underline-offset-auto hover:text-gray-900
               transition-colors duration-300"
           >
             Liên hệ ngay!
-          </Link>
+          </a>
         </h1>
       </div>
     </div>

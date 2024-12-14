@@ -1,59 +1,101 @@
-import React, { useState, useEffect } from "react";
-import Sidebar from "../components/Sidebar";
-import ProductCard from "../components/ProductsCards";
+import React, {
+  useState,
+  useEffect,
+  Suspense,
+  lazy,
+  useCallback,
+  useMemo,
+} from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WorkWithUs from "@/components/WorkWithUs";
-import supabase from "@/apis/supabaseClient";
 import SkeletonProductsCards from "@/components/SkeletonProductsCards";
+import supabase from "@/apis/supabaseClient";
+import BreadcrumbsWithIcon from "@/components/BreadcrumbsWithIcon";
+
+const Sidebar = lazy(() => import("../components/Sidebar"));
+const ProductCard = lazy(() => import("../components/ProductsCards"));
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [fetchError, setFetchError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchProductsByCategories = async (categories) => {
+  const fetchAllProducts = useCallback(async () => {
     setLoading(true);
-    try {
-      const { data, error } = categories.length
-        ? await supabase
-            .from("products")
-            .select("*")
-            .in("category_name", categories) // Ensure this matches your column name
-        : await supabase.from("products").select("*");
+    const { data: allProducts, error } = await supabase
+      .from("products")
+      .select(
+        `
+        product_id,
+        name,
+        description,
+        code,
+        short_desc,
+        price,
+        product_image,
+        categories (category_name)
+        categories!products_category_id_fkey (category_name)
+      `
+      )
+      .order("product_id", { ascending: true });
 
+    if (error) {
+      console.error("Error fetching products:", error);
+      setFetchError("Error fetching products");
+      setProducts([]);
+    } else {
+      setProducts(allProducts || []);
+      setFetchError(null);
+    }
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    fetchAllProducts();
+  }, [fetchAllProducts]);
+
+  const handleProductsUpdate = useCallback(
+    (fetchedProducts, error, all = false) => {
+      setLoading(false);
       if (error) {
         setFetchError("Error fetching products");
         setProducts([]);
+      } else if (all) {
+        fetchAllProducts();
       } else {
-        setProducts(data || []);
+        setProducts(fetchedProducts || []);
         setFetchError(null);
       }
-    } catch (err) {
-      setFetchError("Error fetching products");
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+    [fetchAllProducts]
+  );
 
-  useEffect(() => {
-    fetchProductsByCategories([]);
-  }, []);
+  const productCards = useMemo(
+    () =>
+      products.map((product) => (
+        <ProductCard key={product.product_id} product={product} />
+      )),
+    [products]
+  );
 
   return (
     <>
       <Header />
-      <div className="flex">
-        <Sidebar onCategoryChange={fetchProductsByCategories} />
-        <div className="p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="p-4">
+        <BreadcrumbsWithIcon />
+      </div>
+      <div className="flex flex-col lg:flex-row justify-center items-center">
+        <Suspense fallback={<div>Loading sidebar...</div>}>
+          <Sidebar onProductsUpdate={handleProductsUpdate} />
+        </Suspense>
+        <div className="flex-1 pl-4 pb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {loading ? (
             <SkeletonProductsCards count={3} />
           ) : fetchError ? (
             <p className="text-red-500">{fetchError}</p>
           ) : products.length > 0 ? (
-            products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))
+            productCards
           ) : (
             <p>No products available.</p>
           )}

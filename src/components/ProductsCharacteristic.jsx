@@ -55,7 +55,7 @@ const ProductsCharacteristic = () => {
                   {feature.description}
                 </Typography>
               </CardBody>
-              <CardFooter className="pt-0">
+              {/* <CardFooter className="pt-0">
                 <Button
                   size="sm"
                   variant="text"
@@ -77,7 +77,7 @@ const ProductsCharacteristic = () => {
                     />
                   </svg>
                 </Button>
-              </CardFooter>
+              </CardFooter> */}
             </Card>
           ))}
         </div>
