@@ -6,7 +6,7 @@ import Statistic from "@/components/Statistic";
 import Services from "@/components/Services";
 import SubBanner from "@/components/SubBanner";
 import ProductsCharacteristic from "@/components/Products/ProductsCharacteristic";
-import Footer from "@/components/Footer";
+import Footer from "@/components/Footer/Footer";
 import WorkWithUs from "@/components/WorkWithUs";
 const Homepage = () => {
   return (

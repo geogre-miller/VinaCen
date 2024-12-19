@@ -36,11 +36,29 @@ const Services = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center text-center mb-28 mx-4 pt-10 px-4 lg:px-20 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      <h1 className="text-2xl font-bold font-nunito uppercase mb-6 text-black dark:text-white">
+    <div
+      className="flex flex-col items-center justify-center text-center 
+                    mb-16 sm:mb-20 lg:mb-28 
+                    mx-2 sm:mx-4 
+                    pt-6 sm:pt-8 lg:pt-10 
+                    px-2 sm:px-4 lg:px-20 
+                    bg-gradient-to-b from-white to-gray-100 
+                    dark:from-gray-900 dark:to-gray-800"
+    >
+      <h1
+        className="text-xl sm:text-2xl lg:text-3xl 
+                     font-bold font-nunito uppercase 
+                     mb-4 sm:mb-6 lg:mb-8 
+                     text-black dark:text-white"
+      >
         Dịch Vụ
       </h1>
-      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 w-full max-w-screen-lg">
+      <div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 
+                      gap-4 sm:gap-6 lg:gap-8 
+                      w-full max-w-screen-lg 
+                      justify-items-center"
+      >
         {serviceItems.map((item, index) => (
           <ServicesCards
             key={index}

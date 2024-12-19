@@ -7,6 +7,7 @@ import Products from "./pages/Products";
 import ProductsInfo from "./pages/ProductsInfo";
 import Agency from "./pages/Agency";
 import Blogs from "./pages/Blogs";
+import BlogPost from "@/components/Blogs/BlogPost";
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
         <Route path="/agency" element={<Agency />} />
         {/* <Route path="/internship" element={<Internship />} /> */}
         <Route path="/blogs" element={<Blogs />} />
+        <Route path="/blogs/:id" element={<BlogPost />} />
+
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>

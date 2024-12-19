@@ -39,12 +39,15 @@ const Infor = () => {
             </p>
             <p>
               Tự hào là doanh nghiệp đầu tiên tại Việt Nam ứng dụng công nghệ
-              sản xuất hàng đầu từ Thụy Sỹ, sản phẩm tấm ốp 3d do Vinacen sản
-              xuất luôn được khách hàng trong và ngoài nước tin tưởng sử dụng vì
-              có độ bền cao, chống ẩm mốc, chống cháy, kháng khuẩn, cách âm,
-              cách nhiệt cũng như giá cả rất hợp lý và được ứng dụng trong mọi
-              không gian: phòng khách, phòng ngủ, nhà hàng, khách sạn, caffe,
-              bar, spa…
+              sản xuất hàng đầu từ Thụy Sỹ, sản phẩm tấm ốp 3d do{" "}
+              <span className="font-bold hover:text-light-green-800 transition-all">
+                Vinacen
+              </span>{" "}
+              sản xuất luôn được khách hàng trong và ngoài nước tin tưởng sử
+              dụng vì có độ bền cao, chống ẩm mốc, chống cháy, kháng khuẩn, cách
+              âm, cách nhiệt cũng như giá cả rất hợp lý và được ứng dụng trong
+              mọi không gian: phòng khách, phòng ngủ, nhà hàng, khách sạn,
+              caffe, bar, spa…
             </p>
             <h2 className="text-lg md:text-xl font-bold mt-5 text-center uppercase pb-5">
               Sứ mệnh
@@ -52,21 +55,27 @@ const Infor = () => {
             <ul>
               <li>
                 <span>
-                  - Với khách hàng: Chúng tôi luôn ý thức được sứ mệnh cung cấp
-                  sản phẩm có chất lượng cùng dịch vụ hậu mãi hoàn hảo nhất !
+                  <span className="font-bold hover:text-light-green-800 transition-all">
+                    - Với khách hàng:
+                  </span>{" "}
+                  Chúng tôi luôn ý thức được sứ mệnh cung cấp sản phẩm có chất
+                  lượng cùng dịch vụ hậu mãi hoàn hảo nhất !
                 </span>
               </li>
               <li>
-                <span>- Với đối tác:</span> VinaCen luôn đề cao tinh thần hợp
-                tác với các đối tác trên phương diện “hợp tác song phương – đôi
-                bên cùng phát triển”
+                <span className="font-bold hover:text-light-green-800 transition-all">
+                  - Với đối tác:
+                </span>{" "}
+                VinaCen luôn đề cao tinh thần hợp tác với các đối tác trên
+                phương diện “hợp tác song phương – đôi bên cùng phát triển”
               </li>
               <li>
-                <span>
-                  - Với nhân viên: Con người là giá trị cốt lõi tạo nên giá trị
-                  của doanh nghiệp. Xây dựng môi trường làm việc chuyên nghiệp,
-                  năng động, sáng tạo và nhân văn.
-                </span>
+                <span className="font-bold hover:text-light-green-800 transition-all">
+                  - Với nhân viên:
+                </span>{" "}
+                Con người là giá trị cốt lõi tạo nên giá trị của doanh nghiệp.
+                Xây dựng môi trường làm việc chuyên nghiệp, năng động, sáng tạo
+                và nhân văn.
               </li>
             </ul>
           </motion.div>

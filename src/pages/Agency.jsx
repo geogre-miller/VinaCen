@@ -1,5 +1,5 @@
 import BreadcrumbsWithIcon from "@/components/BreadcrumbsWithIcon";
-import Footer from "@/components/Footer";
+import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 import React from "react";
 

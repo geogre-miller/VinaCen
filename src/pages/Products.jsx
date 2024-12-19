@@ -8,7 +8,7 @@ import React, {
   useMemo,
 } from "react";
 import Header from "@/components/Header/Header";
-import Footer from "@/components/Footer";
+import Footer from "@/components/Footer/Footer";
 import WorkWithUs from "@/components/WorkWithUs";
 import SkeletonProductsCards from "@/components/SkeletonProductsCards";
 import { fetchAllProductsFromApi } from "@/apis/productsApi"; // Import the new function
@@ -24,7 +24,7 @@ const Products = () => {
 
   const fetchAllProducts = useCallback(async () => {
     setLoading(true);
-    const { data: allProducts, error } = await fetchAllProductsFromApi(); // Use the new function
+    const { data: allProducts, error } = await fetchAllProductsFromApi();
 
     if (error) {
       console.error("Error fetching products:", error);
@@ -71,20 +71,33 @@ const Products = () => {
       <div className="p-4">
         <BreadcrumbsWithIcon />
       </div>
-      <div className="flex flex-col lg:flex-row">
-        <Suspense fallback={<div>Loading...</div>}>
-          <Sidebar onProductsUpdate={handleProductsUpdate} />
-        </Suspense>
-        <div className="pl-4 pb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {loading ? (
-            <SkeletonProductsCards count={3} />
-          ) : fetchError ? (
-            <p className="text-red-500">{fetchError}</p>
-          ) : products.length > 0 ? (
-            productCards
-          ) : (
-            <p>No products available.</p>
-          )}
+
+      {/* Main Content Layout */}
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col lg:flex-row gap-6">
+          {/* Sidebar */}
+          <div className="lg:w-[15rem] flex-shrink-0">
+            <Suspense fallback={<div>Loading...</div>}>
+              <Sidebar onProductsUpdate={handleProductsUpdate} />
+            </Suspense>
+          </div>
+
+          {/* Products Grid */}
+          <div className="flex-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6">
+              {loading ? (
+                <SkeletonProductsCards count={6} />
+              ) : fetchError ? (
+                <p className="text-red-500">{fetchError}</p>
+              ) : products.length > 0 ? (
+                productCards
+              ) : (
+                <p className="col-span-full text-center py-8 text-gray-500">
+                  No products available.
+                </p>
+              )}
+            </div>
+          </div>
         </div>
       </div>
 
