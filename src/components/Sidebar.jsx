@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   Typography,
@@ -7,45 +7,31 @@ import {
   ListItemPrefix,
   Checkbox,
 } from "@material-tailwind/react";
-import supabase from "@/apis/supabaseClient";
+import { fetchCategories } from "@/apis/categoriesApi";
+import { fetchProductsByCategories } from "@/apis/productsApi";
 
 const Sidebar = ({ onProductsUpdate }) => {
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [loading, setLoading] = useState(true); // State for loading
+  const [error, setError] = useState(null); // State for error handling
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      const { data, error } = await supabase.from("categories").select("*");
+    const loadCategories = async () => {
+      setLoading(true); // Set loading to true before fetching
+      const { data, error } = await fetchCategories();
       if (error) {
-        console.error("Error fetching categories:", error);
+        setError(error); // Set error if fetching fails
       } else {
-        setCategories(data);
+        setCategories(data); // Set categories if fetching is successful
       }
+      setLoading(false); // Set loading to false after fetching
     };
-
-    fetchCategories();
+    loadCategories();
   }, []);
 
-  const fetchProducts = useCallback(
-    async (categoryIds) => {
-      const { data: products, error } = categoryIds.length
-        ? await supabase
-            .from("products")
-            .select("*")
-            .in("category_id", categoryIds)
-            .order("product_id", { ascending: true })
-        : await supabase
-            .from("products")
-            .select("*")
-            .order("product_id", { ascending: true });
-      onProductsUpdate(products, error);
-    },
-    [onProductsUpdate]
-  );
-
-  const handleCategoryToggle = (categoryName) => {
+  const handleCategoryToggle = async (categoryName) => {
     let updatedCategories;
-
     if (categoryName === "Tất cả") {
       updatedCategories = selectedCategories.includes(categoryName)
         ? []
@@ -64,16 +50,16 @@ const Sidebar = ({ onProductsUpdate }) => {
           (cat) => categories.find((c) => c.category_name === cat).category_id
         );
 
-    fetchProducts(categoryIds);
+    const { data, error } = await fetchProductsByCategories(categoryIds);
+    onProductsUpdate(data, error);
   };
 
-  useEffect(() => {
-    fetchProducts([]);
-  }, []);
+  if (loading) return <div>Loading ...</div>; // Loading state
+  if (error) return <div>Error fetching categories: {error}</div>; // Error state
 
   return (
-    <Card className="sticky top-24 left-0 h-[calc(100vh-6rem)] w-full max-w-[15rem] p-4 mb-4 shadow-xl shadow-blue-gray-900/5 z-10 border-2 border-gray-600">
-      <div className="mb-2 p-4 ">
+    <Card className="sticky top-24 left-0 h-[calc(100vh-6rem)] w-full max-w-[15rem] p-4 mb-4 ml-2 shadow-lg z-10 border-2 border-gray-600 overflow-hidden">
+      <div className="mb-2 p-4">
         <Typography
           variant="h5"
           color="blue-gray"
@@ -84,8 +70,8 @@ const Sidebar = ({ onProductsUpdate }) => {
       </div>
       <List>
         {categories.map((category, index) => (
-          <ListItem key={index} className="p-0 ">
-            <label className="flex w-full cursor-pointer items-center px-3 py-2">
+          <ListItem key={index} className="p-0">
+            <label className="flex w-full cursor-pointer items-center px-3 py-2 hover:bg-gray-100 rounded-md transition-shadow duration-200">
               <ListItemPrefix className="mr-3">
                 <Checkbox
                   ripple={false}
@@ -113,4 +99,3 @@ const Sidebar = ({ onProductsUpdate }) => {
 };
 
 export default Sidebar;
-//

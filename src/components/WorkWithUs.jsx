@@ -19,7 +19,7 @@ const WorkWithUs = () => {
       <div className="relative h-full flex justify-center items-center px-4">
         <h1 className="text-white text-center">
           <span className="text-xl md:text-4xl lg:text-4xl font-bold">
-            Sẵn sàng làm việc với chúng tôi?{" "}
+            Đã tìm thấy sản phẩm ưng ý?{" "}
           </span>
           <a
             href="/contacts"

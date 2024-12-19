@@ -1,36 +1,81 @@
 import supabase from "./supabaseClient";
 
-// Function to fetch products with optional category filtering
-export const fetchProducts = async (category) => {
+// Fetch all products with categories
+export const fetchAllProductsFromApi = async () => {
   try {
-    let query = supabase.from("products").select("*");
-    if (category && category !== "All") {
-      query = query.eq("category", category);
-    }
-    const { data: products, error } = await query;
+    const { data, error } = await supabase
+      .from("products")
+      .select(
+        `
+        *,
+        categories!products_category_id_fkey (category_name)
+      `
+      )
+      .order("product_id", { ascending: true });
+
     if (error) throw error;
-    return products;
+    return { data, error: null };
   } catch (error) {
-    console.error("Error fetching products:", error);
-    return [];
+    console.error("Error fetching all products:", error);
+    return { data: [], error: "Error fetching products" };
   }
 };
 
-// Function to fetch distinct categories from Supabase
-export const fetchCategories = async () => {
+// Fetch products by category IDs
+export const fetchProductsByCategories = async (categoryIds = []) => {
   try {
-    const { data: products, error } = await supabase
-      .from("products")
-      .select("category");
-    if (error) throw error;
+    const query =
+      categoryIds.length > 0
+        ? supabase
+            .from("products")
+            .select("*")
+            .in("category_id", categoryIds)
+            .order("product_id", { ascending: true })
+        : supabase
+            .from("products")
+            .select("*")
+            .order("product_id", { ascending: true });
 
-    // Extract unique categories
-    const uniqueCategories = Array.from(
-      new Set(products.map((item) => item.category))
-    );
-    return uniqueCategories;
+    const { data, error } = await query;
+    if (error) throw error;
+    return { data, error: null };
   } catch (error) {
-    console.error("Error fetching categories:", error);
-    return [];
+    console.error("Error fetching products by categories:", error);
+    return { data: [], error: "Error fetching products" };
+  }
+};
+
+// Fetch single product with images
+export const fetchProductAndImages = async (productId) => {
+  try {
+    const { data: productData, error: productError } = await supabase
+      .from("products")
+      .select("*")
+      .eq("product_id", productId)
+      .single();
+
+    if (productError) throw productError;
+    if (!productData) throw new Error("Product not found.");
+
+    const { data: images, error: imagesError } = await supabase.storage
+      .from("products_images")
+      .list(productData.code);
+
+    if (imagesError) throw imagesError;
+
+    const imageUrls = images.map((image) => {
+      const { data } = supabase.storage
+        .from("products_images")
+        .getPublicUrl(`${productData.code}/${image.name}`);
+      return data.publicUrl;
+    });
+
+    return {
+      data: { product: productData, images: imageUrls.filter(Boolean) },
+      error: null,
+    };
+  } catch (error) {
+    console.error("Error fetching product and images:", error);
+    return { data: null, error: error.message || "An error occurred" };
   }
 };

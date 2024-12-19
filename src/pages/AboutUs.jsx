@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer";
 import {
   Card,
@@ -36,7 +36,7 @@ const AboutUs = () => {
       <div className="w-full min-h-screen px-[15px]">
         <div className="w-full min-h-screen md:px-8 ">
           {/* Hero Section */}
-          <h1 className="text-5xl font-bold font-roboto text-center py-[84px] animate-fade-up">
+          <h1 className="text-5xl font-bold font-roboto text-center pt-[24px] py-[84px] animate-fade-up">
             Về chúng tôi
           </h1>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mx-[99px]">
@@ -56,9 +56,9 @@ const AboutUs = () => {
                 <Typography
                   variant="h6"
                   color="gray"
-                  className="mb-4 uppercase"
+                  className="mb-4 uppercase font-nunito font-bold"
                 >
-                  startups
+                  Vinacen
                 </Typography>
                 <Typography
                   variant="h4"

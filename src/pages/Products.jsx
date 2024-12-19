@@ -1,3 +1,4 @@
+// Products.js
 import React, {
   useState,
   useEffect,
@@ -6,15 +7,15 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
-import Header from "@/components/Header";
+import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer";
 import WorkWithUs from "@/components/WorkWithUs";
 import SkeletonProductsCards from "@/components/SkeletonProductsCards";
-import supabase from "@/apis/supabaseClient";
+import { fetchAllProductsFromApi } from "@/apis/productsApi"; // Import the new function
 import BreadcrumbsWithIcon from "@/components/BreadcrumbsWithIcon";
 
-const Sidebar = lazy(() => import("../components/Sidebar"));
-const ProductCard = lazy(() => import("../components/ProductsCards"));
+const Sidebar = lazy(() => import("@/components/Sidebar"));
+const ProductCard = lazy(() => import("@/components/Products/ProductsCards"));
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -23,22 +24,7 @@ const Products = () => {
 
   const fetchAllProducts = useCallback(async () => {
     setLoading(true);
-    const { data: allProducts, error } = await supabase
-      .from("products")
-      .select(
-        `
-        product_id,
-        name,
-        description,
-        code,
-        short_desc,
-        price,
-        product_image,
-        categories (category_name)
-        categories!products_category_id_fkey (category_name)
-      `
-      )
-      .order("product_id", { ascending: true });
+    const { data: allProducts, error } = await fetchAllProductsFromApi(); // Use the new function
 
     if (error) {
       console.error("Error fetching products:", error);
@@ -85,11 +71,11 @@ const Products = () => {
       <div className="p-4">
         <BreadcrumbsWithIcon />
       </div>
-      <div className="flex flex-col lg:flex-row justify-center items-center">
-        <Suspense fallback={<div>Loading sidebar...</div>}>
+      <div className="flex flex-col lg:flex-row">
+        <Suspense fallback={<div>Loading...</div>}>
           <Sidebar onProductsUpdate={handleProductsUpdate} />
         </Suspense>
-        <div className="flex-1 pl-4 pb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="pl-4 pb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {loading ? (
             <SkeletonProductsCards count={3} />
           ) : fetchError ? (
@@ -101,6 +87,7 @@ const Products = () => {
           )}
         </div>
       </div>
+
       <WorkWithUs />
       <Footer />
     </>

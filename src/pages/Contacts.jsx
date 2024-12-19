@@ -1,5 +1,5 @@
 import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import Header from "@/components/Header/Header";
 import WorkWithUs from "@/components/WorkWithUs";
 
 import clock from "@/assets/icons/clock.svg";
@@ -250,8 +250,8 @@ const Contacts = () => {
                   Dịch vụ:
                 </label>
                 <select className="w-full border p-2 rounded">
-                  <option>Structure Design</option>
-                  <option>Structure Design</option>
+                  <option>Liên hệ tư vấn</option>
+                  <option>Mở đại lý</option>
                   <option>Structure Design</option>
                   {/* <!-- Add more options as needed --> */}
                 </select>

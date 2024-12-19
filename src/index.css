@@ -125,6 +125,24 @@
     transform: rotate(360deg);
   }
 }
+
+.image-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px; /* Adjust spacing between items */
+}
+
+.image-container img {
+  width: 100%; /* Makes images responsive */
+  height: auto; /* Maintains aspect ratio */
+  max-width: 250px; /* Ensures both images have the same max width */
+  max-height: 250px; /* Ensures both images have the same max height */
+  object-fit: cover; /* Ensures the images fit nicely into the container */
+  border-radius: 8px; /* Optional: Adds a rounded border */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds subtle shadow for depth */
+}
+
 @layer utilities {
   /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
