@@ -1,6 +1,9 @@
 import { Button } from "./ui/button";
+import { useScroll } from "@/hooks/useScroll";
 
 const Banner = () => {
+  const { scrollToElement } = useScroll();
+
   return (
     <div className="relative  ">
       {/* Background Image */}
@@ -18,7 +21,10 @@ const Banner = () => {
         <p className="text-white font-nunito font-semibold text-lg mb-6 animate-fade-down animate-ease-linear">
           DUY TRÌ UY TÍN - ĐẢM BẢO CHẤT LƯỢNG - DỊCH VỤ HOÀN HẢO!
         </p>
-        <Button className="px-6 py-2 bg-transparent border border-white text-white text-sm font-medium uppercase hover:bg-white hover:text-black transition duration-600 rounded-md animate-fade-down animate-ease-linear">
+        <Button
+          onClick={() => scrollToElement("info-section")}
+          className="px-6 py-2 bg-transparent border border-white text-white text-sm font-medium uppercase hover:bg-white hover:text-black transition duration-600 rounded-md animate-fade-down animate-ease-linear"
+        >
           Tham Quan
         </Button>
       </div>

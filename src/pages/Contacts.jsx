@@ -8,9 +8,86 @@ import mail from "@/assets/icons/mail.svg";
 import office from "@/assets/icons/office.svg";
 
 import React, { useState } from "react";
+import { Alert, Button } from "@material-tailwind/react";
+import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import { useToast } from "@/components/Toast";
 
 const Contacts = () => {
+  const { Toast, toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    service: "Liên hệ tư vấn",
+    message: "",
+  });
+  const [errors, setErrors] = useState({});
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Name validation
+    if (!formData.name.trim()) {
+      newErrors.name = "Vui lòng nhập họ và tên";
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.trim()) {
+      newErrors.email = "Vui lòng nhập địa chỉ email";
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = "Địa chỉ email không hợp lệ";
+    }
+
+    // Message validation
+    if (!formData.message.trim()) {
+      newErrors.message = "Vui lòng nhập lời nhắn";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Returns true if no errors
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      toast({
+        type: "error",
+        message: "Vui lòng điền đầy đủ thông tin!",
+      });
+      return;
+    }
+
+    // Form submission logic here
+    toast({
+      type: "success",
+      message: "Cảm ơn bạn đã gửi tin nhắn. Chúng tôi sẽ liên hệ lại sớm!",
+    });
+
+    // Reset form
+    setFormData({
+      name: "",
+      email: "",
+      service: "Liên hệ tư vấn",
+      message: "",
+    });
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    // Clear error for this field when user starts typing
+    if (errors[name]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+    }
+  };
 
   return (
     <>
@@ -224,59 +301,93 @@ const Contacts = () => {
           </div>
           {/* Contact Form */}
           <div className="w-full md:w-1/2 bg-white p-8 rounded-lg">
-            <form className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block font-nunito font-bold mb-1">
                   Họ và tên:
                 </label>
                 <input
                   type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   placeholder="Nhập họ và tên của bạn"
-                  className="w-full border p-2 rounded"
+                  className={`w-full border p-2 rounded ${
+                    errors.name ? "border-red-500" : ""
+                  }`}
                 />
+                {errors.name && (
+                  <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+                )}
               </div>
+
               <div>
                 <label className="block font-nunito font-bold mb-1">
                   Địa chỉ Email:
                 </label>
                 <input
                   type="email"
-                  placeholder="Nhập Địa chỉ Emal của bạn"
-                  className="w-full border p-2 rounded "
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Nhập địa chỉ Email của bạn"
+                  className={`w-full border p-2 rounded ${
+                    errors.email ? "border-red-500" : ""
+                  }`}
                 />
+                {errors.email && (
+                  <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                )}
               </div>
+
               <div>
                 <label className="block font-nunito font-bold mb-1">
                   Dịch vụ:
                 </label>
-                <select className="w-full border p-2 rounded">
+                <select
+                  name="service"
+                  value={formData.service}
+                  onChange={handleChange}
+                  className="w-full border p-2 rounded"
+                >
                   <option>Liên hệ tư vấn</option>
                   <option>Mở đại lý</option>
                   <option>Structure Design</option>
-                  {/* <!-- Add more options as needed --> */}
                 </select>
               </div>
+
               <div>
                 <label className="block font-nunito font-bold mb-1">
-                  Nhập lời nhắn:{" "}
+                  Nhập lời nhắn:
                 </label>
                 <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   placeholder="Nhập câu hỏi của bạn dành cho chúng tôi..."
-                  className="w-full border p-2 rounded h-32 font-roboto"
-                ></textarea>
+                  className={`w-full border p-2 rounded h-32 font-roboto ${
+                    errors.message ? "border-red-500" : ""
+                  }`}
+                />
+                {errors.message && (
+                  <p className="text-red-500 text-sm mt-1">{errors.message}</p>
+                )}
               </div>
-              <button
+
+              <Button
                 type="submit"
-                className="bg-black text-white p-2 rounded w-28 font-roboto"
+                className="bg-black text-white px-4 py-2 rounded w-28 font-roboto hover:bg-gray-800 transition-colors"
               >
                 Gửi
-              </button>
+              </Button>
             </form>
           </div>
         </div>{" "}
       </div>
       <WorkWithUs />
       <Footer />
+      {/* Add the toast notification */}
+      {Toast}
     </>
   );
 };

@@ -1,26 +1,26 @@
-// Products.js
 import React, {
   useState,
   useEffect,
-  Suspense,
-  lazy,
   useCallback,
   useMemo,
+  lazy,
+  Suspense,
 } from "react";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import WorkWithUs from "@/components/WorkWithUs";
 import SkeletonProductsCards from "@/components/SkeletonProductsCards";
-import { fetchAllProductsFromApi } from "@/apis/productsApi"; // Import the new function
+import supabase from "@/apis/supabaseClient";
+import { fetchAllProductsFromApi } from "@/apis/productsApi";
 import BreadcrumbsWithIcon from "@/components/BreadcrumbsWithIcon";
 
-const Sidebar = lazy(() => import("@/components/Sidebar"));
+const Sidebar = lazy(() => import("@/components/Products/Sidebar"));
 const ProductCard = lazy(() => import("@/components/Products/ProductsCards"));
 
 const Products = () => {
   const [products, setProducts] = useState([]);
-  const [fetchError, setFetchError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(null);
 
   const fetchAllProducts = useCallback(async () => {
     setLoading(true);
@@ -28,11 +28,9 @@ const Products = () => {
 
     if (error) {
       console.error("Error fetching products:", error);
-      setFetchError("Error fetching products");
-      setProducts([]);
+      setFetchError(error);
     } else {
-      setProducts(allProducts || []);
-      setFetchError(null);
+      setProducts(allProducts);
     }
     setLoading(false);
   }, []);
@@ -41,29 +39,14 @@ const Products = () => {
     fetchAllProducts();
   }, [fetchAllProducts]);
 
-  const handleProductsUpdate = useCallback(
-    (fetchedProducts, error, all = false) => {
-      setLoading(false);
-      if (error) {
-        setFetchError("Error fetching products");
-        setProducts([]);
-      } else if (all) {
-        fetchAllProducts();
-      } else {
-        setProducts(fetchedProducts || []);
-        setFetchError(null);
-      }
-    },
-    [fetchAllProducts]
-  );
-
-  const productCards = useMemo(
-    () =>
-      products.map((product) => (
-        <ProductCard key={product.product_id} product={product} />
-      )),
-    [products]
-  );
+  const handleProductsUpdate = useCallback((updatedProducts, error) => {
+    if (error) {
+      console.error("Error updating products:", error);
+      setFetchError(error);
+    } else {
+      setProducts(updatedProducts);
+    }
+  }, []);
 
   return (
     <>
@@ -72,35 +55,29 @@ const Products = () => {
         <BreadcrumbsWithIcon />
       </div>
 
-      {/* Main Content Layout */}
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col lg:flex-row gap-6">
-          {/* Sidebar */}
-          <div className="lg:w-[15rem] flex-shrink-0">
-            <Suspense fallback={<div>Loading...</div>}>
-              <Sidebar onProductsUpdate={handleProductsUpdate} />
-            </Suspense>
-          </div>
-
-          {/* Products Grid */}
-          <div className="flex-1">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6">
-              {loading ? (
-                <SkeletonProductsCards count={6} />
-              ) : fetchError ? (
-                <p className="text-red-500">{fetchError}</p>
-              ) : products.length > 0 ? (
-                productCards
-              ) : (
-                <p className="col-span-full text-center py-8 text-gray-500">
-                  No products available.
-                </p>
-              )}
+      <div className="flex flex-col lg:flex-row">
+        <Suspense fallback={<div>Loading...</div>}>
+          <Sidebar onProductsUpdate={handleProductsUpdate} />
+        </Suspense>
+        <div className="pl-4 pb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {loading ? (
+            <SkeletonProductsCards count={3} />
+          ) : fetchError ? (
+            <div className="text-red-500">
+              Error loading products: {fetchError.message}
             </div>
-          </div>
+          ) : (
+            products.map((product) => (
+              <Suspense
+                fallback={<div>Loading...</div>}
+                key={product.product_id}
+              >
+                <ProductCard product={product} />
+              </Suspense>
+            ))
+          )}
         </div>
       </div>
-
       <WorkWithUs />
       <Footer />
     </>

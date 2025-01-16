@@ -13,6 +13,13 @@ export function ProductsCards({ product }) {
     product.price === null || product.price === 0
       ? "Liên hệ"
       : `$${parseFloat(product.price).toFixed(2)}`;
+
+  // Handle category display with fallback
+  const categoryName =
+    product.categories?.category_name ||
+    product.category_name ||
+    (typeof product.categories === "string" ? product.categories : "");
+
   return (
     <Card className="w-full sm:max-w-[340px] lg:max-w-[380px] border border-gray-200 shadow-md hover:shadow-xl transition-all duration-300">
       <CardHeader
@@ -25,9 +32,11 @@ export function ProductsCards({ product }) {
           alt={product.name}
           className="h-full w-full object-cover"
         />
-        <div className="absolute top-4 right-4 bg-white/90 px-3 py-1 rounded-full text-sm">
-          {product.categories?.category_name}
-        </div>
+        {categoryName && (
+          <div className="absolute top-4 right-4 bg-white/90 px-3 py-1 rounded-full text-sm">
+            {categoryName}
+          </div>
+        )}
       </CardHeader>
       <CardBody className="p-4 sm:p-6">
         <div className="mb-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">

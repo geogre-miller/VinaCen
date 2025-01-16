@@ -75,6 +75,10 @@ const BlogPost = () => {
             className="prose-headings:mb-4 prose-p:mb-4 prose-img:rounded-lg prose-img:shadow-md"
             dangerouslySetInnerHTML={{ __html: blog.content }}
           />
+          <h2 className="text-lg sm:text-xl font-semibold mb-4 ">
+            {blog.firstTitles}
+          </h2>
+          <p className="text-justify indent-6">{blog.firstContents}</p>
         </div>
         <div className="mt-8 sm:mt-12 pt-4 border-t border-gray-200">
           <h3 className="text-lg sm:text-xl font-semibold mb-4">

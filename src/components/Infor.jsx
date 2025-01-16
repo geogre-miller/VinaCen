@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const Infor = () => {
   return (
-    <div className="bg-[#f1fcf3]">
+    <div id="info-section" className="bg-[#f1fcf3]">
       <motion.div
         className="mt-10"
         initial={{ opacity: 0 }}
