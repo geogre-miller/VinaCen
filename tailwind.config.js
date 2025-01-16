@@ -1,5 +1,8 @@
 import { defineConfig } from "vite";
 import withMT from "@material-tailwind/react/utils/withMT";
+import animate from "tailwindcss-animate";
+import animated from "tailwindcss-animated";
+import scrollbarHide from "tailwind-scrollbar-hide";
 
 export default withMT(
   defineConfig({
@@ -73,10 +76,6 @@ export default withMT(
         },
       },
     },
-    plugins: [
-      require("tailwindcss-animate"),
-      require("tailwindcss-animated"),
-      require("tailwind-scrollbar-hide"),
-    ],
+    plugins: [animate, animated, scrollbarHide],
   })
 );
