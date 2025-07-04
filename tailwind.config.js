@@ -1,81 +1,79 @@
-import { defineConfig } from "vite";
 import withMT from "@material-tailwind/react/utils/withMT";
 import animate from "tailwindcss-animate";
 import animated from "tailwindcss-animated";
 import scrollbarHide from "tailwind-scrollbar-hide";
 
-export default withMT(
-  defineConfig({
-    darkMode: ["class"],
-    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-    theme: {
-      extend: {
-        borderRadius: {
-          lg: "var(--radius)",
-          md: "calc(var(--radius) - 2px)",
-          sm: "calc(var(--radius) - 4px)",
+/** @type {import('tailwindcss').Config} */
+export default withMT({
+  darkMode: ["class"],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      colors: {
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
-        colors: {
-          background: "hsl(var(--background))",
-          foreground: "hsl(var(--foreground))",
-          card: {
-            DEFAULT: "hsl(var(--card))",
-            foreground: "hsl(var(--card-foreground))",
-          },
-          popover: {
-            DEFAULT: "hsl(var(--popover))",
-            foreground: "hsl(var(--popover-foreground))",
-          },
-          primary: {
-            DEFAULT: "hsl(var(--primary))",
-            foreground: "hsl(var(--primary-foreground))",
-          },
-          secondary: {
-            DEFAULT: "hsl(var(--secondary))",
-            foreground: "hsl(var(--secondary-foreground))",
-          },
-          muted: {
-            DEFAULT: "hsl(var(--muted))",
-            foreground: "hsl(var(--muted-foreground))",
-          },
-          accent: {
-            DEFAULT: "hsl(var(--accent))",
-            foreground: "hsl(var(--accent-foreground))",
-          },
-          destructive: {
-            DEFAULT: "hsl(var(--destructive))",
-            foreground: "hsl(var(--destructive-foreground))",
-          },
-          border: "hsl(var(--border))",
-          input: "hsl(var(--input))",
-          ring: "hsl(var(--ring))",
-          chart: {
-            1: "hsl(var(--chart-1))",
-            2: "hsl(var(--chart-2))",
-            3: "hsl(var(--chart-3))",
-            4: "hsl(var(--chart-4))",
-            5: "hsl(var(--chart-5))",
-          },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
         },
-        animation: {
-          pulse: "pulse var(--duration) ease-out infinite",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
-        keyframes: {
-          pulse: {
-            "0%, 100%": {
-              boxShadow: "0 0 0 0 var(--pulse-color)",
-            },
-            "50%": {
-              boxShadow: "0 0 0 8px var(--pulse-color)",
-            },
-          },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
-        fontFamily: {
-          nunito: ["Nunito", "serif"],
-          roboto: ["Roboto Mono", "serif"],
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        chart: {
+          1: "hsl(var(--chart-1))",
+          2: "hsl(var(--chart-2))",
+          3: "hsl(var(--chart-3))",
+          4: "hsl(var(--chart-4))",
+          5: "hsl(var(--chart-5))",
         },
       },
+      animation: {
+        pulse: "pulse var(--duration) ease-out infinite",
+      },
+      keyframes: {
+        pulse: {
+          "0%, 100%": {
+            boxShadow: "0 0 0 0 var(--pulse-color)",
+          },
+          "50%": {
+            boxShadow: "0 0 0 8px var(--pulse-color)",
+          },
+        },
+      },
+      fontFamily: {
+        nunito: ["Nunito", "serif"],
+        roboto: ["Roboto Mono", "serif"],
+      },
     },
-    plugins: [animate, animated, scrollbarHide],
-  })
-);
+  },
+  plugins: [animate, animated, scrollbarHide],
+});
