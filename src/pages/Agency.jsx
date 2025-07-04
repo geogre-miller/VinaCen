@@ -251,7 +251,7 @@ const Agency = () => {
 
       toast({
         type: "success",
-        message: "Đăng ký thành công! Chúng tôi sẽ liên hệ với bạn sớm.",
+        message: "Đăng ký thành công! Chúng tôi sẽ liên hệ lại với bạn sớm.",
       });
 
       // Reset form

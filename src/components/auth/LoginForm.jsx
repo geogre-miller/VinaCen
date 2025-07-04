@@ -12,7 +12,7 @@ import { useToast } from "@/components/Toast";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const { toast, Toast } = useToast();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -24,23 +24,25 @@ const LoginForm = () => {
     setIsLoading(true);
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signInWithPassword({
         email: formData.email,
         password: formData.password,
       });
 
       if (error) throw error;
 
-      toast({
-        type: "success",
-        message: "Đăng nhập thành công!",
+      setTimeout(() => {
+        toast({
+          type: "success",
+          message: "Đăng nhập thành công!",
+        });
+        navigate("/admin");
       });
-
-      navigate("/admin");
     } catch (error) {
+      console.log("Login error:", error);
       toast({
         type: "error",
-        message: "Email hoặc mật khẩu không chính xác",
+        message: "Email hoặc mật khẩu không chính xác.",
       });
     } finally {
       setIsLoading(false);
@@ -83,6 +85,7 @@ const LoginForm = () => {
           </form>
         </CardBody>
       </Card>
+      {Toast}
     </div>
   );
 };
