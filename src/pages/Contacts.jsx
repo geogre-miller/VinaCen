@@ -92,13 +92,13 @@ const Contacts = () => {
   return (
     <>
       <Header />
-      <div className="w-full min-h-screen px-[15px] pb-24">
+      <div className="w-full min-h-screen px-4 md:px-[15px] pb-24">
         <div className="w-full md:px-8 ">
-          <h1 className="text-5xl font-bold font-roboto text-center py-[84px] animate-fade-up">
+          <h1 className="text-3xl md:text-5xl font-bold font-roboto text-center py-12 md:py-[84px] animate-fade-up">
             Liên hệ
           </h1>
         </div>
-        <div className="p-[2px] shadow-md w-full h-[480px] rounded-lg border-2 border-green-800 relative">
+        <div className="p-[2px] shadow-md w-full h-[300px] md:h-[480px] rounded-lg border-2 border-green-800 relative">
           {isLoading && (
             <div className="absolute inset-0 flex items-center justify-center bg-white">
               <div className="loader"></div> {/* Updated loader */}
@@ -115,18 +115,20 @@ const Contacts = () => {
             onLoad={() => setIsLoading(false)}
           ></iframe>
         </div>
-        <div className="flex flex-col md:flex-row justify-between items-start w-full h-auto p-8 px-48 mt-[30px] gap-[75px]">
+        <div className="flex flex-col lg:flex-row justify-between items-start w-full h-auto p-4 md:p-8 lg:px-48 mt-[30px] gap-8 lg:gap-[75px]">
           {/* Contact Information */}
-          <div className="w-full md:w-1/2 p-[10px] md:mb-0">
-            <h2 className="text-5xl font-bold font-roboto mb-4">Liên hệ</h2>
+          <div className="w-full lg:w-1/2 p-[10px] mb-8 lg:mb-0">
+            <h2 className="text-3xl md:text-5xl font-bold font-roboto mb-4">
+              Liên hệ
+            </h2>
             <p className="text-sm font-roboto">
               Bạn đang tìm kiếm một giải pháp trang trí nội thất độc đáo và hiện
               đại? Tấm trần 3D của chúng tôi sẽ là lựa chọn hoàn hảo.
             </p>
-            <div className="pt-[40px] pb-[20px] grid grid-cols-2 grid-rows-1 gap-5 ">
+            <div className="pt-[40px] pb-[20px] grid grid-cols-1 md:grid-cols-2 gap-5">
               {/* Office Section */}
               <div className="flex items-start">
-                <div className="mr-3">
+                <div className="mr-3 flex-shrink-0">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="27"
@@ -158,7 +160,7 @@ const Contacts = () => {
               </div>
               {/* Open Hours Section */}
               <div className="flex items-start">
-                <div className="mr-3">
+                <div className="mr-3 flex-shrink-0">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -227,10 +229,10 @@ const Contacts = () => {
                 </div>
               </div>
             </div>
-            <div className="my-[10px]  grid grid-cols-2 grid-rows-1 gap-5">
+            <div className="my-[10px] grid grid-cols-1 md:grid-cols-2 gap-5">
               {/* Call Us Section */}
               <div className="flex items-start">
-                <div className="mr-3">
+                <div className="mr-3 flex-shrink-0">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -272,7 +274,7 @@ const Contacts = () => {
               </div>
               {/* Email Us Section */}
               <div className="flex items-start">
-                <div className="etheme-icon-box-icon etheme-icon-box-icon-type-icon mr-3">
+                <div className="etheme-icon-box-icon etheme-icon-box-icon-type-icon mr-3 flex-shrink-0">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="25"
@@ -300,7 +302,7 @@ const Contacts = () => {
             </div>
           </div>
           {/* Contact Form */}
-          <div className="w-full md:w-1/2 bg-white p-8 rounded-lg">
+          <div className="w-full lg:w-1/2 bg-white p-4 md:p-8 rounded-lg shadow-lg">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block font-nunito font-bold mb-1">
@@ -331,7 +333,7 @@ const Contacts = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Nhập địa chỉ Email của bạn"
-                  className={`w-full border p-2 rounded ${
+                  className={`w-full border p-3 rounded text-sm md:text-base ${
                     errors.email ? "border-red-500" : ""
                   }`}
                 />
@@ -348,7 +350,7 @@ const Contacts = () => {
                   name="service"
                   value={formData.service}
                   onChange={handleChange}
-                  className="w-full border p-2 rounded"
+                  className="w-full border p-3 rounded text-sm md:text-base"
                 >
                   <option>Liên hệ tư vấn</option>
                   <option>Mở đại lý</option>
@@ -365,7 +367,7 @@ const Contacts = () => {
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Nhập câu hỏi của bạn dành cho chúng tôi..."
-                  className={`w-full border p-2 rounded h-32 font-roboto ${
+                  className={`w-full border p-3 rounded h-32 font-roboto text-sm md:text-base ${
                     errors.message ? "border-red-500" : ""
                   }`}
                 />
@@ -376,13 +378,13 @@ const Contacts = () => {
 
               <Button
                 type="submit"
-                className="bg-black text-white px-4 py-2 rounded w-28 font-roboto hover:bg-gray-800 transition-colors"
+                className="bg-black text-white px-6 py-3 rounded w-full md:w-auto min-w-[120px] font-roboto hover:bg-gray-800 transition-colors"
               >
                 Gửi
               </Button>
             </form>
           </div>
-        </div>{" "}
+        </div>
       </div>
       <WorkWithUs />
       <Footer />
