@@ -79,3 +79,43 @@ export const fetchProductAndImages = async (productId) => {
     return { data: null, error: error.message || "An error occurred" };
   }
 };
+
+// Create a new product
+export const createProduct = async (product) => {
+  try {
+    const { data, error } = await supabase.from("products").insert([product]).single();
+    if (error) throw error;
+    return { data, error: null };
+  } catch (error) {
+    console.error("Error creating product:", error);
+    return { data: null, error: error.message };
+  }
+};
+
+// Update an existing product
+export const updateProduct = async (productId, updatedData) => {
+  try {
+    const { data, error } = await supabase
+      .from("products")
+      .update(updatedData)
+      .eq("product_id", productId)
+      .single();
+    if (error) throw error;
+    return { data, error: null };
+  } catch (error) {
+    console.error("Error updating product:", error);
+    return { data: null, error: error.message };
+  }
+};
+
+// Delete a product
+export const deleteProduct = async (productId) => {
+  try {
+    const { data, error } = await supabase.from("products").delete().eq("product_id", productId);
+    if (error) throw error;
+    return { data, error: null };
+  } catch (error) {
+    console.error("Error deleting product:", error);
+    return { data: null, error: error.message };
+  }
+};

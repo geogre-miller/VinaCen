@@ -1,43 +1,21 @@
-import { useAuth } from "@/components/auth/AuthContext";
-import { useNavigate } from "react-router-dom";
-import { Button } from "@material-tailwind/react";
-import supabase from "@/apis/supabaseClient";
-import { useToast } from "@/components/Toast";
+import { useState } from "react";
+import AdminNavbar from "@/components/admin/AdminNavbar";
+import AdminSidebar from "@/components/admin/Sidebar";
+import { Outlet } from "react-router-dom";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
-const Admin = () => {
-  const { user } = useAuth();
-  const navigate = useNavigate();
-  const { toast } = useToast();
-
-  const handleLogout = async () => {
-    try {
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
-
-      toast({
-        type: "success",
-        message: "Đăng xuất thành công!",
-      });
-      navigate("/login");
-    } catch (error) {
-      toast({
-        type: "error",
-        message: "Có lỗi xảy ra khi đăng xuất",
-      });
-    }
-  };
+export default function Admin() {
+  const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <div className="min-h-screen p-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-        <Button onClick={handleLogout}>Đăng xuất</Button>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Add your admin dashboard components here */}
+    <div className="flex h-screen bg-gray-100">
+      <AdminSidebar collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)} />
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <AdminNavbar onSidebarToggle={() => setCollapsed(!collapsed)} />
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200 p-4 md:p-8">
+          <Outlet />
+        </main>
       </div>
     </div>
   );
-};
-
-export default Admin;
+}

@@ -12,36 +12,46 @@ import BlogPost from "@/components/Blogs/BlogPost";
 import Admin from "./pages/Admin";
 import LoginForm from "./components/auth/LoginForm";
 import ProtectedRoute from "./components/Route/ProtectedRoute";
+import AdminProducts from "./pages/admin/AdminProducts";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 function App() {
   return (
     <AuthProvider>
       <Router>
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/about-us" element={<AboutUs />} />
-          <Route path="/contacts" element={<Contacts />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/products/:id" element={<ProductsInfo />} />
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/contacts" element={<Contacts />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/products/:id" element={<ProductsInfo />} />
 
-          <Route path="/agency" element={<Agency />} />
-          <Route path="/blogs" element={<Blogs />} />
-          <Route path="/blogs/:id" element={<BlogPost />} />
+            <Route path="/agency" element={<Agency />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/blogs/:id" element={<BlogPost />} />
 
-          <Route path="/login" element={<LoginForm />} />
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute>
-                <Admin />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
+            <Route path="/login" element={<LoginForm />} />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <Admin />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/products"
+              element={
+                <ProtectedRoute>
+                  <AdminProducts />
+                </ProtectedRoute>
+              }
+            />
+            {/* Additional admin routes here */}
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
       </Router>
     </AuthProvider>
   );
 }
-
 export default App;
